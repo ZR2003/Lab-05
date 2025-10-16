@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic Form Builder</title>
+    <style>
+        .form-builder { margin: 20px; }
+        .form-container { margin-top: 20px; }
+        .dynamic-field { margin: 10px 0; }
+        .error { border: 2px solid red; }
+        .error-message { color: red; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="form-builder">
+        <h2>Dynamic Form Builder</h2>
+        <button onclick="addField('text')">Add Text Field</button>
+        <button onclick="addField('email')">Add Email Field</button>
+        <button onclick="addField('dropdown')">Add Dropdown</button>
+        <div class="form-container">
+            <form id="dynamicForm" onsubmit="return validateForm()">
+                <div id="formFields"></div>
+                <button type="submit">Submit Form</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        let fieldCount = 0;
+
+        function addField(type) {
+            const formFields = document.getElementById('formFields');
+            fieldCount++;
+            const fieldDiv = document.createElement('div');
+            fieldDiv.className = 'dynamic-field';
+            
+            switch(type) {
+                case 'text':
+                    fieldDiv.innerHTML = `
+                        <label>Text Field ${fieldCount}:</label>
+                        <input type="text" name="textfield_${fieldCount}" 
+                               placeholder="Enter text" data-type="text">
+                        <span class="error-message"></span>
+                    `;
+                    break;
+                case 'email':
+                    fieldDiv.innerHTML = `
+                        <label>Email Field ${fieldCount}:</label>
+                        <input type="email" name="emailfield_${fieldCount}" 
+                               placeholder="Enter email" data-type="email">
+                        <span class="error-message"></span>
+                    `;
+                    break;
+                case 'dropdown':
+                    fieldDiv.innerHTML = `
+                        <label>Dropdown ${fieldCount}:</label>
+                        <select name="dropdown_${fieldCount}" data-type="dropdown">
+                            <option value="">Select an option</option>
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                            <option value="option3">Option 3</option>
+                        </select>
+                        <span class="error-message"></span>
+                    `;
+                    break;
+            }
+            formFields.appendChild(fieldDiv);
+        }
+
+        function validateForm() {
+            try {
+                const form = document.getElementById('dynamicForm');
+                const fields = form.querySelectorAll('input, select');
+                let isValid = true;
+
+                // Clear previous errors
+                fields.forEach(field => {
+                    field.classList.remove('error');
+                    const errorSpan = field.parentNode.querySelector('.error-message');
+                    if (errorSpan) errorSpan.textContent = '';
+                });
+
+                // Validate each field
+                fields.forEach(field => {
+                    const fieldType = field.getAttribute('data-type');
+                    let fieldValid = true;
+                    let errorMessage = '';
+
+                    switch(fieldType) {
+                        case 'text':
+                            if (!field.value.trim()) {
+                                fieldValid = false;
+                                errorMessage = 'Text field cannot be empty';
+                            }
+                            break;
+                        case 'email':
+                            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                            if (!emailRegex.test(field.value)) {
+                                fieldValid = false;
+                                errorMessage = 'Please enter a valid email address';
+                            }
+                            break;
+                        case 'dropdown':
+                            if (!field.value) {
+                                fieldValid = false;
+                                errorMessage = 'Please select an option';
+                            }
+                            break;
+                    }
+
+                    if (!fieldValid) {
+                        isValid = false;
+                        field.classList.add('error');
+                        const errorSpan = field.parentNode.querySelector('.error-message');
+                        if (errorSpan) errorSpan.textContent = errorMessage;
+                    }
+                });
+
+                if (!isValid) {
+                    throw new Error('Please fix the validation errors');
+                }
+
+                alert('Form submitted successfully!');
+                return false; // Prevent actual form submission for demo
+            } catch (error) {
+                console.error('Form validation error:', error.message);
+                alert('Error: ' + error.message);
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

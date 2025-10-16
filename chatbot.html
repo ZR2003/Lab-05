@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat App</title>
+    <style>
+        .chat-container {
+            width: 400px;
+            height: 500px;
+            border: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        .message {
+            margin: 5px;
+            padding: 8px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+        .bot-message {
+            background-color: #f1f1f1;
+            margin-right: auto;
+        }
+        .chat-input {
+            display: flex;
+            padding: 10px;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 8px;
+        }
+        .chat-input button {
+            padding: 8px 15px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Message constructor function
+        function Message(text, sender) {
+            this.text = text;
+            this.sender = sender;
+            this.timestamp = new Date();
+        }
+        
+        const messages = [];
+        
+        function sendMessage() {
+            try {
+                const input = document.getElementById('messageInput');
+                const messageText = input.value.trim();
+                
+                // Validate message
+                if (!messageText) {
+                    throw new Error('Message cannot be empty');
+                }
+                
+                // Create user message
+                const userMessage = new Message(messageText, 'user');
+                messages.push(userMessage);
+                
+                // Display message
+                displayMessage(userMessage);
+                
+                // Clear input
+                input.value = '';
+                
+                // Simulate bot reply after 1 second
+                setTimeout(sendBotReply, 1000);
+                
+            } catch (error) {
+                console.error('Error sending message:', error.message);
+                alert('Error: ' + error.message);
+            }
+        }
+        
+        function sendBotReply() {
+            const replies = [
+                "Hello! How can I help you?",
+                "That's interesting!",
+                "Tell me more about that.",
+                "I understand.",
+                "Thanks for sharing!"
+            ];
+            
+            const randomReply = replies[Math.floor(Math.random() * replies.length)];
+            const botMessage = new Message(randomReply, 'bot');
+            messages.push(botMessage);
+            displayMessage(botMessage);
+        }
+        
+        function displayMessage(message) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            
+            messageDiv.className = `message ${message.sender}-message`;
+            messageDiv.textContent = message.text;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Allow sending message with Enter key
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
