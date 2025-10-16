@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Projects Dashboard</title>
+  <style>
+    /* Animated gradient background */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(-45deg, #ff6f91, #ff9671, #ffc75f, #f9f871);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+      font-size: 2em;
+      margin: 0;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      color: #f1f1f1;
+      font-size: 0.9em;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 1000px;
+      margin-top: 50px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(31, 38, 135, 0.5);
+    }
+
+    .card h2 {
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .card p {
+      font-size: 0.95em;
+      color: #eee;
+      margin-bottom: 20px;
+    }
+
+    .card a {
+      text-decoration: none;
+      color: white;
+      background: linear-gradient(45deg, #ff6f91, #ff9671);
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .card a:hover {
+      background: linear-gradient(45deg, #ffc75f, #f9f871);
+      color: #222;
+    }
+
+    footer {
+      margin-top: auto;
+      background: rgba(255, 255, 255, 0.15);
+      width: 100%;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 0.9em;
+      color: #eee;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5em;
+      }
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>JavaScript Interactive Projects</h1>
+    <p>Developed by <strong>Momina Amin</strong> | Enrollment No: <strong>02-134231-034</strong></p>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>Exercise 1</h2>
+      <p>Add To Cart System using DOM, Arrays & Events</p>
+      <a href="task1.html" target="_blank">Open Project</a>
+    </div>
+
+    <div class="card">
+      <h2>Exercise 2</h2>
+      <p>Chat App Interface with Auto-Reply & Dynamic Messages</p>
+      <a href="task2.html" target="_blank">Open Project</a>
+    </div>
+
+    <div class="card">
+      <h2>Exercise 3</h2>
+      <p>Dynamic Form Builder & Validator (Email, Dropdown, Text)</p>
+      <a href="task3.html" target="_blank">Open Project</a>
+    </div>
+
+    <div class="card">
+      <h2>Exercise 4</h2>
+      <p>Expense Tracker Dashboard with Filtering & Validation</p>
+      <a href="task4.html" target="_blank">Open Project</a>
+    </div>
+  </main>
+
+  <!--  Footer -->
+  <footer>
+    © 2025 | Created by Momina | JavaScript Lab Assignments
+  </footer>
+
+</body>
+</html>
